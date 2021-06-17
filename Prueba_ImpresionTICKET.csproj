@@ -80,7 +80,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TicketC\TicketC.csproj">
+    <ProjectReference Include="TicketC\TicketC.csproj">
       <Project>{f591a0eb-267c-4303-a73b-ab397fd0d509}</Project>
       <Name>TicketC</Name>
     </ProjectReference>

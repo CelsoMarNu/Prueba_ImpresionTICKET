@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prueba_ImpresionTICKET", "Prueba_ImpresionTICKET.csproj", "{44F84CCA-E869-4272-A6A2-6A5CB929C7F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketC", "..\TicketC\TicketC.csproj", "{F591A0EB-267C-4303-A73B-AB397FD0D509}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketC", "TicketC\TicketC.csproj", "{F591A0EB-267C-4303-A73B-AB397FD0D509}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
