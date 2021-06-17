@@ -12,21 +12,72 @@ namespace Prueba_ImpresionTICKET
 {
     public partial class Form1 : Form
     {
+        DataTable detalles = new DataTable();
         public Form1()
         {
             InitializeComponent();
         }
+        public void ArmarDataTable()
+        {
+            DataColumn ColLinea;
+            ColLinea = new DataColumn("LINEA");
+
+            DataColumn ColCodigo;
+            ColCodigo = new DataColumn("CODIGOBARRA");
+
+            DataColumn ColPrecioVentaBruto;
+            ColPrecioVentaBruto = new DataColumn("PRECIOVENTABRUTO");
+
+            DataColumn colCantidadVenta;
+            colCantidadVenta = new DataColumn("CANTIDADVENTA");
+
+            DataColumn colDescripcionProducto;
+            colDescripcionProducto = new DataColumn("DESCRIPCIONPRODUCTO");
+
+            detalles.Columns.Add(ColLinea);
+            detalles.Columns.Add(ColCodigo);
+            detalles.Columns.Add(ColPrecioVentaBruto);
+            detalles.Columns.Add(colCantidadVenta);
+            detalles.Columns.Add(colDescripcionProducto);
+
+            //"CODIGOBARRA"
+            //"PRECIOVENTABRUTO"
+            //"CANTIDADVENTA"
+            //"DESCRIPCIONPRODUCTO"
+
+        }
+        public void CargarDataTable()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                DataRow row1 = detalles.NewRow();
+                row1["LINEA"] = i;
+                row1["CODIGOBARRA"] = ("Producto " + i);
+                row1["PRECIOVENTABRUTO"] = (1000 * i);
+                row1["CANTIDADVENTA"] =  i;
+                row1["DESCRIPCIONPRODUCTO"] = ("Descripcion "+ i);
+                detalles.Rows.Add(row1);
+            }
+            ////DataRow row1 = detalles.NewRow();
+            ////row1["LINEA"] = "value1";
+            ////row1["CODIGOBARRA"] = "value2";
+            ////row1["PRECIOVENTABRUTO"] = "value2";
+            ////row1["CANTIDADVENTA"] = "value2";
+            ////row1["DESCRIPCIONPRODUCTO"] = "value2";
+            ////detalles.Rows.Add(row1);
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ImprimirTicket("Microsoft Print to PDF", 0, null);
+            ArmarDataTable();
+            CargarDataTable();
+            ImprimirTicket("Microsoft Print to PDF", 0, detalles);
         }
         private void ImprimirTicket(string NombreImpresora, int candecimales, DataTable dt)
         {
             TicketCS.Ticket Ticket = new TicketCS.Ticket();
             Decimal importe, cantidad, precio;
 
-            
             importe = 0;
             cantidad = 0;
             precio = 0;
@@ -79,6 +130,7 @@ namespace Prueba_ImpresionTICKET
                     Ticket.AddItem(codigo, "", descripcion);
 
                     Ticket.AddItem(cantidad.ToString().PadLeft(13), "", precio.ToString().PadLeft(9) + importe.ToString().PadLeft(10));
+
                 }
                 //##########################   
 
@@ -95,24 +147,24 @@ namespace Prueba_ImpresionTICKET
                 Ticket.AddSubHeaderLine("DIR.    : ");
                 Ticket.AddSubHeaderLine("TEL.    : ");
 
-                Ticket.AddTotal("TOTAL A PAGAR GS", "1.000.000");
+                Ticket.AddTotal("TOTAL A PAGAR GS ", "0");
                 Ticket.AddFooterLine("");
 
                 Ticket.AddTotal(RecortaCaracteres("-----------------------------------"), "");
 
-                Ticket.AddTotal("TOTAL EXENTA GS", "1.000.000");
-                Ticket.AddTotal("Gravada 5% GS", "0");
-                Ticket.AddTotal("Gravada 10% GS", "0");
+                Ticket.AddTotal("TOTAL EXENTA GS ", "0");
+                Ticket.AddTotal("Gravada 5% GS ", "0");
+                Ticket.AddTotal("Gravada 10% GS ", "0");
 
                 Ticket.AddTotal("-----------------------------------", "");
 
-                Ticket.AddTotal("TOTAL I.V.A. 10%", "0");
-                Ticket.AddTotal("TOTAL I.V.A. 5%", "0");
-                Ticket.AddTotal("TOTAL I.V.A.", "0");
+                Ticket.AddTotal("TOTAL I.V.A. 10% ", "0");
+                Ticket.AddTotal("TOTAL I.V.A. 5% ", "0");
+                Ticket.AddTotal("TOTAL I.V.A. ", "0");
 
                 //############################################
                 //Pie del comprobante
-                Ticket.AddTotal(RecortaCaracteres("-----------------------------------"), "");
+                Ticket.AddTotal(RecortaCaracteres("-----------------------------------"),"");
 
                 Ticket.AddFooterLine("");
                 Ticket.AddFooterLine(RecortaCaracteres("*GRACIAS POR SU PREFERENCIA*"));
